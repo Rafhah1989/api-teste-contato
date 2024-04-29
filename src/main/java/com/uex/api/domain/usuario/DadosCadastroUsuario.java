@@ -7,6 +7,7 @@ public record DadosCadastroUsuario(
         @NotBlank
         String nome,
         @NotBlank
+        @Email
         String email,
         @NotBlank
         String senha) {

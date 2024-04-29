@@ -53,4 +53,14 @@ public class AutenticacaoController {
         return ResponseEntity.created(uriComponents.toUri()).body(new DadosUsuarioCadastrado(usuario.getNome(), usuario.getEmail()));
 
     }
+
+    @PostMapping("/recuperar")
+    @Transactional
+    public ResponseEntity<?> recuperarSenha(@RequestBody @Valid DadosRecuperarSenha dadosRecuperarSenha, UriComponentsBuilder uriBuilder) {
+
+        Usuario usuario = usuarioService.recuperarSenha(dadosRecuperarSenha);
+
+        return ResponseEntity.ok(new DadosUsuarioCadastrado(usuario.getNome(), usuario.getEmail()));
+
+    }
 }

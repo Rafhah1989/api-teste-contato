@@ -15,14 +15,6 @@ public class UsuarioValidator{
 
     public void validator(DadosCadastroUsuario usuario) {
 
-        Pattern pattern = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
-
-        Matcher matcher = pattern.matcher(usuario.email());
-
-        if (!matcher.find()) {
-            throw new ValidacaoException("Email inválido");
-        }
-
         Usuario user = (Usuario) usuarioRepository.findByEmail(usuario.email());
 
         if(user !=null) {
