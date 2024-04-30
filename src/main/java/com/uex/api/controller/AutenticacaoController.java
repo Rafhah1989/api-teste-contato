@@ -50,7 +50,7 @@ public class AutenticacaoController {
 
         UriComponents uriComponents = uriComponentsBuilder.buildAndExpand(usuario.getId());
 
-        return ResponseEntity.created(uriComponents.toUri()).body(new DadosUsuarioCadastrado(usuario.getNome(), usuario.getEmail()));
+        return ResponseEntity.created(uriComponents.toUri()).body(new DadosUsuarioCadastrado(usuario.getId(), usuario.getNome(), usuario.getEmail()));
 
     }
 
@@ -60,7 +60,7 @@ public class AutenticacaoController {
 
         Usuario usuario = usuarioService.recuperarSenha(dadosRecuperarSenha);
 
-        return ResponseEntity.ok(new DadosUsuarioCadastrado(usuario.getNome(), usuario.getEmail()));
+        return ResponseEntity.ok(new DadosUsuarioCadastrado(usuario.getId(), usuario.getNome(), usuario.getEmail()));
 
     }
 }

@@ -1,4 +1,4 @@
 package com.uex.api.domain.usuario;
 
-public record DadosUsuarioCadastrado(String nome, String email) {
+public record DadosUsuarioCadastrado(Long id, String nome, String email) {
 }
