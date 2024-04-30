@@ -15,9 +15,9 @@ public class UsuarioValidator implements ValidadorCadastroDeUsuario {
 
     public void validator(DadosCadastroUsuario usuario) {
 
-        Usuario user = (Usuario) usuarioRepository.findByEmail(usuario.email());
+        boolean existeUsuario = usuarioRepository.existsByEmail(usuario.email());
 
-        if(user !=null) {
+        if(existeUsuario) {
             throw new ValidacaoException("Email já cadastrado");
         }
 

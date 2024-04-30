@@ -11,4 +11,8 @@ public record DadosCadastroUsuario(
         String email,
         @NotBlank
         String senha) {
+
+        public DadosCadastroUsuario(Usuario usuario) {
+                this(usuario.getNome(), usuario.getEmail(), usuario.getSenha());
+        }
 }
