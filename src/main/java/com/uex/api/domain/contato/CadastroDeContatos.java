@@ -53,7 +53,7 @@ public class CadastroDeContatos {
 
         try {
             GeoApiContext context = new GeoApiContext.Builder()
-                    .apiKey("AIzaSyAamYxWYgIsKTjtHCWIgghoHyDGbRr1MBc")
+                    .apiKey("***")
                     .build();
 
             GeocodingResult[] results = new GeocodingResult[0];
