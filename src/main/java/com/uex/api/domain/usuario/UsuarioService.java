@@ -1,9 +1,12 @@
 package com.uex.api.domain.usuario;
 
 import com.uex.api.domain.ValidacaoException;
+import com.uex.api.domain.contato.ContatoRepository;
+import com.uex.api.domain.usuario.validacoes.ValidadorCadastroDeUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +19,10 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private List<UsuarioValidator> validators;
+    private ContatoRepository contatoRepository;
+
+    @Autowired
+    private List<ValidadorCadastroDeUsuario> validators;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -42,9 +48,26 @@ public class UsuarioService {
 
     }
 
+    public void excluirUsuario(DadosAutenticacao dadosAutenticacao) {
+
+        Usuario usuario = (Usuario) usuarioRepository.findByEmail(dadosAutenticacao.email());
+
+        if (usuario == null){
+            throw new ValidacaoException("Usuário não encontrado com o email informado!");
+        }
+
+        if (!BCrypt.checkpw(dadosAutenticacao.senha(), usuario.getSenha())) {
+            throw new ValidacaoException("Senha inválida!");
+        }
+
+        contatoRepository.deleteByUsuarioId(usuario.getId());
+        usuarioRepository.deleteById(usuario.getId());
+
+    }
+
     public Usuario recuperarSenha(DadosRecuperarSenha dadosRecuperarSenha) {
 
-        var usuario = usuarioRepository.findByEmailRecovery(dadosRecuperarSenha.email());
+        var usuario = (Usuario) usuarioRepository.findByEmail(dadosRecuperarSenha.email());
 
         if (usuario == null){
             throw new ValidacaoException("Email não encontrado!");

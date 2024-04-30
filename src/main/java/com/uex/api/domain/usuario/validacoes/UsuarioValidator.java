@@ -1,14 +1,14 @@
-package com.uex.api.domain.usuario;
+package com.uex.api.domain.usuario.validacoes;
 
 import com.uex.api.domain.ValidacaoException;
+import com.uex.api.domain.usuario.DadosCadastroUsuario;
+import com.uex.api.domain.usuario.Usuario;
+import com.uex.api.domain.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 @Component
-public class UsuarioValidator{
+public class UsuarioValidator implements ValidadorCadastroDeUsuario {
 
     @Autowired
     private UsuarioRepository usuarioRepository;

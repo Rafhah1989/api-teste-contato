@@ -16,4 +16,6 @@ public interface ContatoRepository extends JpaRepository<Contato, Long> {
             inner join c.usuario u
             """)
     Page<Contato> findAllWithUsuario(Pageable pageable);
+
+    void deleteByUsuarioId(Long idUsuario);
 }

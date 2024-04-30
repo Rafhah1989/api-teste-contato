@@ -9,10 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -62,5 +59,14 @@ public class AutenticacaoController {
 
         return ResponseEntity.ok(new DadosUsuarioCadastrado(usuario.getId(), usuario.getNome(), usuario.getEmail()));
 
+    }
+
+    @DeleteMapping
+    @Transactional
+    public ResponseEntity excluir(@RequestBody @Valid DadosAutenticacao dados){
+
+        usuarioService.excluirUsuario(dados);
+
+        return ResponseEntity.noContent().build();
     }
 }

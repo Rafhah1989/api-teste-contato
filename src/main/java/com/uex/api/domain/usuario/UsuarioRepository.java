@@ -7,11 +7,4 @@ import org.springframework.security.core.userdetails.UserDetails;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     UserDetails findByEmail(String email);
 
-    @Query("""
-            select u
-            from Usuario u
-            where
-            u.email = :email
-            """)
-    Usuario findByEmailRecovery(String email);
 }
